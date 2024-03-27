@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "strict": true, // use strict 사용
+    "target": "es2016", // 컴파일 문법
+    "preserveValueImports": false,
+    "module": "commonjs", // 모듈 포맷
+    "esModuleInterop": true,
+    "outDir": "./dist", //타입스크립트가 자바스크립트로 빌드된 파일들 모아두는 폴더명
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "noEmit": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "typeRoots": [
+    "./node_modules/@types",
+    "./src/types"
+  ],
+  "include": [
+    "./src/**/*"
+, "app.ts", "src/app.js"  ],
+  "exclude": [
+    "node_modules",
+    "tests"
+  ]
+}
