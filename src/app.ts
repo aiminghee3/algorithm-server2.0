@@ -1,6 +1,7 @@
 import express from 'express';
 import Logger from './loader/logger';
 import config from './config';
+import "reflect-metadata"
 
 async function startServer() {
   const app = express();
@@ -15,9 +16,9 @@ async function startServer() {
 
   app.listen(config.port, () => {
     Logger.info(`
-      ################################################
-      🛡️  Server listening on port: ${config.port} 🛡️
-      ################################################
+      ------------------------------
+      *   ${config.port} 번 포트에서 대기중  *
+      ------------------------------
     `);
   }).on('error', err => {
     Logger.error(err);
