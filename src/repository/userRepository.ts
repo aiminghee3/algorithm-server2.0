@@ -23,8 +23,14 @@ const dataSourceOptions: DataSourceOptions = {
 
 const datasource = new DataSource(dataSourceOptions);
 
-export const userRepository = datasource.getRepository(User)
+const userRepository = datasource.getRepository(User)
 
-userRepository.findOne({ where: { id: 1 } }).then(user => {
-  console.log(user)
+export default class UserRepository {
+  // Custom repository methods can be defined here if needed
+  getUser(){
+    const user = userRepository.findOne({ where: { id: 1 } }).then(user => {
+      console.log(user)
+      return user;
+    })
+  }
 }
