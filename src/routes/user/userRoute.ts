@@ -1,11 +1,10 @@
 import { Router, Request, Response } from 'express';
+import express from 'express';
 
-const route = Router();
+const router = express.Router();
 
 export default (app: Router) => {
-  app.use('/users', route);
+  app.use('/user', router);
 
-  route.get('/me', (req: Request, res: Response) => {
-    //return res.json({ user: req.currentUser }).status(200);
-  });
+  //router.post('/users', createUser);
 };

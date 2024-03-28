@@ -10,7 +10,7 @@ export default ({ app }: { app: express.Application }) => {
 
   
   app.get('/', (req: express.Request, res: express.Response) => {
-    res.send('Typescript + Node.js + Express Server');
+    res.send('테스트');
   });
   
 

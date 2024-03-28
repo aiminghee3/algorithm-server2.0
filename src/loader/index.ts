@@ -1,9 +1,14 @@
 import expressLoader from './express';
 import express from 'express';
 import Logger from './logger';
+import { AppDataSource } from '../models/data-source';
 
 export default async (app : express.Application) => {
-    Logger.info('데이터베이스가 연결되었습니다');
+
+    // 데이터베이스 연결
+    AppDataSource.initialize().then(() => Logger.info('데이터베이스가 연결되었습니다.')).catch((err) => {
+        console.log("데이터베이스 연결에 실패하였습니다.");
+    }); // 추가
 
   /**
    * WTF is going on here?
