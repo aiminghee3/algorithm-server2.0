@@ -1,14 +1,9 @@
 import expressLoader from './express';
+import { databaseLoader } from '../models/index';
 import express from 'express';
 import Logger from './logger';
-import { AppDataSource } from '../models/data-source';
 
 export default async (app : express.Application) => {
-
-    // 데이터베이스 연결
-    AppDataSource.initialize().then(() => Logger.info('데이터베이스가 연결되었습니다.')).catch((err) => {
-        console.log("데이터베이스 연결에 실패하였습니다.");
-    }); // 추가
 
   /**
    * WTF is going on here?
@@ -28,8 +23,8 @@ export default async (app : express.Application) => {
     */
 
 // It returns the agenda instance because it's needed  in the subsequent loaders
-
+await databaseLoader();
 await expressLoader({ app });
 
-Logger.info('✌️ Express loaded');
+Logger.info('Express loaded');
 };

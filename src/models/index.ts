@@ -1,19 +1,16 @@
-import { AppDataSource } from "./data-source"
+import { myDataSource } from "./data-source"
 import { User } from "./entity/user"
+import Logger from '../loader/logger';
 
-AppDataSource.initialize().then(async () => {
+// 데이터베이스 커넥션 초기화 
+export const databaseLoader = () => {
+    myDataSource
+        .initialize()
+        .then(() => Logger.info('데이터베이스가 연결되었습니다.'))
+        .catch((err) => {
+            console.error("Error during Data Source initialization:", err)
+    })
+}
 
-    console.log("Inserting a new user into the database...")
-    const user = new User()
-    user.email = "Timber"
-    user.password = "Saw"
-    await AppDataSource.manager.save(user)
-    console.log("Saved a new user with id: " + user.id)
+export { myDataSource };
 
-    console.log("Loading users from the database...")
-    const users = await AppDataSource.manager.find(User)
-    console.log("Loaded users: ", users)
-
-    console.log("Here you can setup and run express / fastify / any other framework.")
-
-}).catch(error => console.log(error))
