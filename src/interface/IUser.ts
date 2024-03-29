@@ -11,3 +11,8 @@ export interface IUserInputDTO{
     email: string;
     password: string;
 }
+
+export interface IUserUpdateDTO{
+    id : number
+    password : string;
+}

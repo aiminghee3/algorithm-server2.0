@@ -12,11 +12,17 @@ export default (app: Router) => {
   route.post('/signup', userController.signUp);
 
   //로그인
-  //route.post('/login', userController.login);
+  route.post('/login', userController.login);
 
   //회원정보 조회
-  //route.get('/getinfo', userController.getInfo);
+  route.get('/getinfo/:userId', userController.getInfo);
 
+  //회원정보 수정
+  //route.put('/modify', userController.updateUser);
+
+  //회원탈퇴
+  route.delete('/delete/:userId', userController.deleteUser);
+  
   //테스트
   route.get('/test', userController.test);
 };

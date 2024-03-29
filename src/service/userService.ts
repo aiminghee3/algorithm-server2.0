@@ -1,5 +1,6 @@
 import UserRepository from "@/repository/userRepository";
 import { IUser, IUserInputDTO } from "@/interface/IUser";
+import logger from "@/loader/logger";
 
 export default class userService{
     private userRepository : UserRepository;
@@ -9,13 +10,24 @@ export default class userService{
         this.userRepository = new UserRepository();
     }
 
+
     /**
      * 회원가입
      */
     public async signUp(newUser: IUserInputDTO){
+        // 비밀번호 특수문자 검증
+        const pwValidation = new RegExp(
+            `^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})`
+        );
+        if(!pwValidation.test(newUser.password)) {
+            logger.error(`비밀번호는 영문, 숫자, 특수문자를 포함한 8~20자로 입력해주세요.`);
+            throw new Error(`비밀번호는 영문, 숫자, 특수문자를 포함한 8~20자로 입력해주세요.`);
+        }
+
         const user = await this.userRepository.findUserByEmail(newUser.email);
         if(user){
-            throw new ErrorEvent('이미 존재하는 이메일입니다.');
+            logger.error('이미 존재하는 이메일입니다.');
+            throw new Error('이미 존재하는 이메일입니다.');
         }
         await this.userRepository.signUp(newUser);
     }
@@ -24,11 +36,14 @@ export default class userService{
      * 로그인
      */
     public async login(newUser: IUserInputDTO){
+
         const user = await this.userRepository.findUserByEmail(newUser.email);
         if(!user){
+            logger.error('존재하지 않는 계정입니다.');
             throw new ErrorEvent('존재하지 않는 계정입니다.');
         }
         if(user.password !== newUser.password){
+            logger.error('비밀번호가 일치하지 않습니다.');
             throw new ErrorEvent('비밀번호가 일치하지 않습니다.');
         }
         return user;
@@ -37,8 +52,17 @@ export default class userService{
     /**
      * 회원정보 수정
      */
-    public async modifyUserInfo(modifyInfo : IUser){
-        await this.userRepository.modifyUserInfo(modifyInfo);
+    public async updateUserInfo(modifyInfo : IUser){
+        const user = await this.userRepository.getUserInfo(modifyInfo.id);
+        if(!user){
+            logger.error('존재하지 않는 계정입니다.');
+            throw new Error('존재하지 않는 계정입니다.');
+        }
+        else if(user === modifyInfo){
+            logger.error('수정할 정보가 없습니다.');
+            throw new Error("수정할 정보가 없습니다.")
+        }
+        await this.userRepository.update(modifyInfo);
     }
     
     /**
@@ -47,16 +71,22 @@ export default class userService{
     public async getUserInfo(userId: number) : Promise<IUser>{
         const user = await this.userRepository.getUserInfo(userId);
         if(!user){
+            logger.error('존재하지 않는 계정입니다.');
             throw new ErrorEvent('존재하지 않는 계정입니다.');
         }
-        return user;
+        return user as IUser;
     }
 
     /**
      * 회원탈퇴
      */
-    public async declareUser(userId: number){
-        await this.userRepository.deleteUser(userId);
+    public async deleteUser(userId: number){
+        const user = await this.userRepository.getUserInfo(userId);
+        if(!user){
+            logger.error('존재하지 않는 계정입니다.');
+            throw new ErrorEvent('존재하지 않는 계정입니다.');
+        }
+        await this.userRepository.delete(userId);
     }
     
 }
