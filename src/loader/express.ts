@@ -1,20 +1,26 @@
+import {Application, Request, Response} from 'express';
 import express from 'express';
+import config from '@/config'; // configuration 설정파일
+import routes from '@/routes'; // 라우터 설정파일
 import cors from 'cors';
 
 
-export default ({ app }: { app: express.Application }) => {
+export default ({ app }: { app: Application }) => {
   /**
    * 헬스체크 엔드포인드
    * @TODO Explain why they are here
    */
 
   
-  app.get('/', (req: express.Request, res: express.Response) => {
+  app.get('/', (req: Request, res: Response) => {
     res.send('테스트');
   });
-  
 
-  
+  //console.log(config.jwtSecret);
+  app.use(express.json());
+  app.use(routes());
+  app.use(cors());
+
   // Useful if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
   // It shows the real origin IP in the heroku or Cloudwatch logs
   //app.enable('trust proxy');

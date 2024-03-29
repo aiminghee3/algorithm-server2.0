@@ -2,10 +2,11 @@ import UserRepository from "@/repository/userRepository";
 import { IUser, IUserInputDTO } from "@/interface/IUser";
 
 export default class userService{
-    private userRepository: UserRepository;
+    private userRepository : UserRepository;
 
     constructor(){
         // constructor implementation
+        this.userRepository = new UserRepository();
     }
 
     /**
@@ -31,6 +32,31 @@ export default class userService{
             throw new ErrorEvent('비밀번호가 일치하지 않습니다.');
         }
         return user;
+    }
+
+    /**
+     * 회원정보 수정
+     */
+    public async modifyUserInfo(modifyInfo : IUser){
+        await this.userRepository.modifyUserInfo(modifyInfo);
+    }
+    
+    /**
+     * 회원정보 조회
+     */
+    public async getUserInfo(userId: number) : Promise<IUser>{
+        const user = await this.userRepository.getUserInfo(userId);
+        if(!user){
+            throw new ErrorEvent('존재하지 않는 계정입니다.');
+        }
+        return user;
+    }
+
+    /**
+     * 회원탈퇴
+     */
+    public async declareUser(userId: number){
+        await this.userRepository.deleteUser(userId);
     }
     
 }
