@@ -9,7 +9,7 @@ if (env.error) {
   throw new Error("env파일을 찾을 수 없습니다.");
 }
 
-export const AppDataSource = new DataSource({
+export const myDataSource = new DataSource({
     type: "mysql",
     host: process.env.HOST,
     port: 3306,
