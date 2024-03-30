@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import user from './user/userRoute';
+import user from './userRoute';
 
 
 // guaranteed to get dependencies

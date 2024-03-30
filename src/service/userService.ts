@@ -1,6 +1,16 @@
 import UserRepository from "@/repository/userRepository";
 import { IUser, IUserInputDTO } from "@/interface/IUser";
+import { generateAccessToken, generateRefreshToken } from "@/utils/token";
+import jwt from 'jsonwebtoken';
 import logger from "@/loader/logger";
+import dotenv from 'dotenv';
+
+const env = dotenv.config();
+
+if (env.error) {
+    // This error should crash whole process
+    throw new Error("env파일을 찾을 수 없습니다.");
+}
 
 export default class userService{
     private userRepository : UserRepository;
@@ -9,7 +19,6 @@ export default class userService{
         // constructor implementation
         this.userRepository = new UserRepository();
     }
-
 
     /**
      * 회원가입
@@ -46,7 +55,10 @@ export default class userService{
             logger.error('비밀번호가 일치하지 않습니다.');
             throw new ErrorEvent('비밀번호가 일치하지 않습니다.');
         }
-        return user;
+        const accessToken = generateAccessToken(user.id);
+        const refreshToken = generateRefreshToken(user.id);
+
+        return {accessToken, refreshToken, user};
     }
 
     /**
