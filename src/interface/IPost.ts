@@ -12,6 +12,7 @@ export interface IPostInputDTO{
     rate : number;
     content : string;
     alarm : Date;
+    user : IUser;
 }
 
 export interface IPostUpdateDTO{

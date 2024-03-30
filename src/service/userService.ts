@@ -1,16 +1,7 @@
 import UserRepository from "@/repository/userRepository";
 import { IUser, IUserInputDTO } from "@/interface/IUser";
 import { generateAccessToken, generateRefreshToken } from "@/utils/token";
-import jwt from 'jsonwebtoken';
 import logger from "@/loader/logger";
-import dotenv from 'dotenv';
-
-const env = dotenv.config();
-
-if (env.error) {
-    // This error should crash whole process
-    throw new Error("env파일을 찾을 수 없습니다.");
-}
 
 export default class userService{
     private userRepository : UserRepository;

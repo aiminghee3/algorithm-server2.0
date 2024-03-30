@@ -16,7 +16,7 @@ export default (app: Router) => {
   route.post('/login', userController.login);
 
   //회원정보 조회
-  route.get('/getinfo/:userId', verifyAccessToken, userController.getInfo);
+  route.get('/getinfo/:userId', userController.getInfo);
 
   //회원정보 수정
   //route.put('/modify', verifyAccessToken, userController.updateUser);
