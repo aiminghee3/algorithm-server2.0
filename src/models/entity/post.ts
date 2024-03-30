@@ -22,13 +22,13 @@ export class Post {
     @Column({ type: 'text' })
     content : string
 
-    @Column()
+    @Column(({ type: 'timestamp', nullable: true }))
     alarm : Date
 
-    @CreateDateColumn()
+    @CreateDateColumn(({ type: 'timestamp'}))
     public createdAt: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn(({ type: 'timestamp'}))
     public lastUpdatedAt: Date;
 
     @ManyToOne(() => User, user => user.posts)
