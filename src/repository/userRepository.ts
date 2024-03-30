@@ -30,14 +30,14 @@ export default class UserRepository {
   /**
    * 회원정보 수정
    */
-  public async modifyUserInfo(modifyInfo: IUser){
+  public async update(modifyInfo: IUser){
     await this.userRepository.update(modifyInfo.id, modifyInfo);
   }
 
   /**
    * 회원탈퇴
    */
-  public async deleteUser(userId: number){
+  public async delete(userId: number){
     await this.userRepository.delete(userId);
   }
 
