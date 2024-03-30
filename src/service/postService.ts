@@ -3,13 +3,16 @@ import UserRepository from "@/repository/userRepository";
 import { IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
 import logger from "@/loader/logger";
 import { IUser } from "@/interface/IUser";
+import { relative } from "path";
+import { Post } from "../models/entity/post"
+import { myDataSource } from "@/models";
 
 export default class PostService{
-    private postRepository : PostRepository;
     private userRepository : UserRepository;
 
+    private postRepository = myDataSource.getRepository(Post);
+
     constructor(){
-        this.postRepository = new PostRepository();
         this.userRepository = new UserRepository();
     }
 
@@ -34,7 +37,10 @@ export default class PostService{
      * 게시글 수정
      */
     public async updatePost(updatePost : IPostUpdateDTO){
-        const post = await this.postRepository.findOne(updatePost.postId);
+        const post = await this.postRepository.findOneBy({
+            id : updatePost.postId,
+        });
+
         if(post?.user.id != updatePost.userId){
             logger.error('작성자만 수정할 수 있습니다.');
             throw new Error('작성자만 수정할 수 있습니다.');
@@ -44,13 +50,14 @@ export default class PostService{
             logger.error('수정할 정보가 없습니다.');
             throw new Error('수정할 정보가 없습니다.');   
         }
-        await this.postRepository.update(updatePost);
+        await this.postRepository.update(updatePost.postId, updatePost);
     }
+    
     /**
      * 게시글 전체조회
      */
     public async getAllPost(){
-        const posts = await this.postRepository.findAll();
+        const posts = await this.postRepository.find();
         return posts;
     }
 
@@ -58,18 +65,24 @@ export default class PostService{
      * 게시글 단일 조회
      */
     public async getPost(postId : number){
-        const post = await this.postRepository.findOne(postId);
+        const post = await this.postRepository.findOneBy({
+            id : postId,
+        });
         if(!post){
             logger.error('존재하지 않는 게시글입니다.');
             throw new Error('존재하지 않는 게시글입니다.');
         }
         return post;
     }
+
     /**
      * 게시글 삭제
      */
     public async deletePost(postId : number, userId : number){
-        const post = await this.postRepository.findOne(postId);
+        const post = await this.postRepository.findOne({
+            where: { id: postId },
+            relations: ['user']
+        });
         if(post?.user.id != userId){
             logger.error('작성자만 삭제할 수 있습니다.');
             throw new Error('작성자만 삭제할 수 있습니다.');

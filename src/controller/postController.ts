@@ -25,4 +25,38 @@ export default class postController{
             return res.status(err.statusCode || 500).json({ message: '게시글 작성에 실패하였습니다.' });
         }
     }
+
+    /**
+     * 게시글 수정
+     */
+
+
+    /**
+     * 게시글 삭제
+     */
+    public async deletePost(req : Request, res : Response){
+        const postId : number = parseInt(req.params.postId, 10);
+        const userId : number = parseInt(req.params.userId, 10);
+        try{
+            await postService.deletePost(postId, userId);
+            logger.info('게시글 삭제 성공');
+            return res.status(200).json({ message : '게시글 삭제 성공'});
+        }
+        catch(err : any){
+            logger.error('게시글 삭제 실패');
+            return res.status(err.statusCode || 500).send({message : '게시글 삭제에 실패하였습니다.'});
+        }
+    }
+
+    /**
+     * 게시글 전체조회
+     */
+
+    /**
+     * 게시글 단일 조회
+     */
+
+    /**
+     * 게시글 업데이트
+     */
 }
