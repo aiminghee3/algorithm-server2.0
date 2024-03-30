@@ -6,15 +6,6 @@ import cors from 'cors';
 
 
 export default ({ app }: { app: Application }) => {
-  /**
-   * 헬스체크 엔드포인드
-   * @TODO Explain why they are here
-   */
-
-  
-  app.get('/', (req: Request, res: Response) => {
-    res.send('테스트');
-  });
 
   //console.log(config.jwtSecret);
   app.use(express.json());

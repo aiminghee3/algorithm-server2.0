@@ -36,8 +36,10 @@ export default class userController{
         }
 
         try{
-            const user : IUser = await userService.login(userInputDTO);
+            const user = await userService.login(userInputDTO);
             logger.info('로그인 성공');
+            res.cookie("acessToken" , user.accessToken);
+            res.cookie("refreshToken" , user.refreshToken);
             return res.status(200).json({message : '로그인 성공', user : user});
         }
         catch(err : any){

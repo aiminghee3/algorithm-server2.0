@@ -2,6 +2,7 @@ import "reflect-metadata"
 import { DataSource } from "typeorm"
 import dotenv from 'dotenv';
 import { User } from "./entity/user"
+import { Post } from "./entity/post"
 
 const env = dotenv.config();
 if (env.error) {
@@ -16,7 +17,7 @@ export const myDataSource = new DataSource({
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    entities: [User, "./entity/*.js", "./entity/*.ts"],
+    entities: [User,Post,  "./entity/*.js", "./entity/*.ts"],
     logging: true,
     synchronize: true,
 })

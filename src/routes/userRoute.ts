@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import UserController from '@/controller/userController';
+import { verifyAccessToken } from "../config/middlewares/auth";
 
 const route = Router();
 const userController = new UserController();
@@ -15,13 +16,13 @@ export default (app: Router) => {
   route.post('/login', userController.login);
 
   //회원정보 조회
-  route.get('/getinfo/:userId', userController.getInfo);
+  route.get('/getinfo/:userId', verifyAccessToken, userController.getInfo);
 
   //회원정보 수정
-  //route.put('/modify', userController.updateUser);
+  //route.put('/modify', verifyAccessToken, userController.updateUser);
 
   //회원탈퇴
-  route.delete('/delete/:userId', userController.deleteUser);
+  route.delete('/delete/:userId', verifyAccessToken, userController.deleteUser);
   
   //테스트
   route.get('/test', userController.test);
