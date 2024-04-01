@@ -5,7 +5,8 @@ import { myDataSource } from "@/models";
 import jwt from 'jsonwebtoken';
 import { User } from "@/models/entity/user";
 import logger from "@/loader/logger";
-import dotenv from 'dotenv';
+
+
 
 export default class userService{
     
