@@ -3,6 +3,8 @@ import { DataSource } from "typeorm"
 import dotenv from 'dotenv';
 import { User } from "./entity/user"
 import { Post } from "./entity/post"
+import { Hashtag } from "./entity/hashtag"
+import { postHashtag } from "./entity/postHashtag";
 
 const env = dotenv.config();
 if (env.error) {
@@ -17,7 +19,7 @@ export const myDataSource = new DataSource({
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    entities: [User,Post,  "./entity/*.js", "./entity/*.ts"],
+    entities: [User,Post, Hashtag, postHashtag,  "./entity/*.js", "./entity/*.ts"],
     logging: true,
     synchronize: true,
 })

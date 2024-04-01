@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany} from "typeorm";
 import { User } from "./user";
+import { postHashtag } from "./postHashtag";
 
 @Entity()
 export class Post {
@@ -31,6 +32,11 @@ export class Post {
     @UpdateDateColumn(({ type: 'timestamp'}))
     public lastUpdatedAt: Date;
 
+
     @ManyToOne(() => User, user => user.posts)
     user : User;
+
+    
+    @OneToMany(() => postHashtag, postHashtag => postHashtag.post)
+    postHashtags : postHashtag[];
 }
