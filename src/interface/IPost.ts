@@ -16,8 +16,8 @@ export interface IPostInputDTO{
 }
 
 export interface IPostUpdateDTO{
+    id : number;
     userId : number;
-    postId : number;
     title : string;
     problem_number : number;
     problem_link : string;
