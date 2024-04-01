@@ -1,24 +1,15 @@
 import UserRepository from "@/repository/userRepository";
 import { IUser, IUserInputDTO } from "@/interface/IUser";
 import { generateAccessToken, generateRefreshToken } from "@/utils/token";
+import { myDataSource } from "@/models";
 import jwt from 'jsonwebtoken';
+import { User } from "@/models/entity/user";
 import logger from "@/loader/logger";
 import dotenv from 'dotenv';
 
-const env = dotenv.config();
-
-if (env.error) {
-    // This error should crash whole process
-    throw new Error("env파일을 찾을 수 없습니다.");
-}
-
 export default class userService{
-    private userRepository : UserRepository;
-
-    constructor(){
-        // constructor implementation
-        this.userRepository = new UserRepository();
-    }
+    
+    private userRepository = myDataSource.getRepository(User);
 
     /**
      * 회원가입
@@ -33,12 +24,14 @@ export default class userService{
             throw new Error(`비밀번호는 영문, 숫자, 특수문자를 포함한 8~20자로 입력해주세요.`);
         }
 
-        const user = await this.userRepository.findUserByEmail(newUser.email);
+        const user = await this.userRepository.findOneBy({
+            email : newUser.email
+          })
         if(user){
             logger.error('이미 존재하는 이메일입니다.');
             throw new Error('이미 존재하는 이메일입니다.');
         }
-        await this.userRepository.signUp(newUser);
+        await this.userRepository.save(newUser);
     }
 
     /**
@@ -46,7 +39,9 @@ export default class userService{
      */
     public async login(newUser: IUserInputDTO){
 
-        const user = await this.userRepository.findUserByEmail(newUser.email);
+        const user = await this.userRepository.findOneBy({
+            email : newUser.email
+          })
         if(!user){
             logger.error('존재하지 않는 계정입니다.');
             throw new ErrorEvent('존재하지 않는 계정입니다.');
@@ -64,27 +59,31 @@ export default class userService{
     /**
      * 회원정보 수정
      */
-    public async updateUserInfo(modifyInfo : IUser){
-        const user = await this.userRepository.getUserInfo(modifyInfo.id);
+    public async updateUserInfo(updateInfo : IUser){
+        const user = await this.userRepository.findOneBy({ // 1. User객체나 null을 반환할 수 있음
+            id: updateInfo.id
+          });
         if(!user){
             logger.error('존재하지 않는 계정입니다.');
             throw new Error('존재하지 않는 계정입니다.');
         }
-        else if(user === modifyInfo){
+        else if(user === updateInfo){
             logger.error('수정할 정보가 없습니다.');
             throw new Error("수정할 정보가 없습니다.")
         }
-        await this.userRepository.update(modifyInfo);
+        await this.userRepository.update(updateInfo.id, updateInfo);
     }
     
     /**
      * 회원정보 조회
      */
     public async getUserInfo(userId: number) : Promise<IUser>{
-        const user = await this.userRepository.getUserInfo(userId);
+        const user = await this.userRepository.findOneBy({ // 1. User객체나 null을 반환할 수 있음
+            id: userId
+          });
         if(!user){
             logger.error('존재하지 않는 계정입니다.');
-            throw new ErrorEvent('존재하지 않는 계정입니다.');
+            throw new Error('존재하지 않는 계정입니다.');
         }
         return user as IUser;
     }
@@ -93,7 +92,9 @@ export default class userService{
      * 회원탈퇴
      */
     public async deleteUser(userId: number){
-        const user = await this.userRepository.getUserInfo(userId);
+        const user = await this.userRepository.findOneBy({ // 1. User객체나 null을 반환할 수 있음
+            id: userId
+          });
         if(!user){
             logger.error('존재하지 않는 계정입니다.');
             throw new ErrorEvent('존재하지 않는 계정입니다.');
