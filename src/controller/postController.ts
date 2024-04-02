@@ -65,7 +65,7 @@ export default class postController{
     public async getAllPost(req : Request, res : Response){
         try{
             const post = await postService.getAllPost();
-            return res.status(200).json({message : '게시글 전체조회 성공', data : post});
+            return res.status(200).json({message : '게시글 전체조회 성공', post});
         }
         catch(err : any){
             logger.error('게시글 전체조회 실패');
@@ -80,7 +80,7 @@ export default class postController{
         const postId : number = parseInt(req.params.postId, 10);
         try{
             const post = await postService.getPost(postId);
-            return res.status(200).json({message : '게시글 상세조회 성공', data : post});
+            return res.status(200).json({message : '게시글 상세조회 성공', post});
         }
         catch(err : any){
             res.status(err.statusCode || 500).send({message : '게시글 조회에 실패하였습니다.'});
@@ -94,7 +94,7 @@ export default class postController{
         const updatePost : IPostUpdateDTO = req.body;
         try{
             const post = await postService.test(updatePost);
-            return res.status(200).json({message : '게시글 상세조회 성공', data : post});
+            return res.status(200).json({message : '게시글 상세조회 성공', post});
         }
         catch(err : any){
             res.status(err.statusCode || 500).send({message : '게시글 조회에 실패하였습니다.'});

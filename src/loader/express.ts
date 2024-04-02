@@ -3,11 +3,33 @@ import express from 'express';
 import config from '@/config'; // configuration 설정파일
 import routes from '@/routes'; // 라우터 설정파일
 import cors from 'cors';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 
+
+const env = dotenv.config();
+if (env.error) {
+  // This error should crash whole process
+  throw new Error("env파일을 찾을 수 없습니다.");
+}
+
+// 특정 도메인에서의 요청만 허용
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // 인증 정보를 포함하려면 true로 설정
+  Headers: ["Content-type", "Authorization"],
+  optionsSuccessStatus: 204,
+};
 
 export default ({ app }: { app: Application }) => {
 
   //console.log(config.jwtSecret);
+  app.use(cors(corsOptions)); // cors문제 해결
+  app.use(morgan('dev'));
+  app.use(express.urlencoded({ extended: true })); // URL-encoded 형식의 body 파싱 -> 프론트에서 form형식으로 제출되면 express.json으로 해석불가해서 사용
+  app.use(cookieParser()) // 쿠키 확인
   app.use(express.json());
   app.use(routes());
   app.use(cors());
