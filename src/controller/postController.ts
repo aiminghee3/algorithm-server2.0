@@ -86,4 +86,18 @@ export default class postController{
             res.status(err.statusCode || 500).send({message : '게시글 조회에 실패하였습니다.'});
         }
     }
+
+    /**
+     * 테스트
+     */
+    public async getTest(req : Request, res : Response){
+        const updatePost : IPostUpdateDTO = req.body;
+        try{
+            const post = await postService.test(updatePost);
+            return res.status(200).json({message : '게시글 상세조회 성공', data : post});
+        }
+        catch(err : any){
+            res.status(err.statusCode || 500).send({message : '게시글 조회에 실패하였습니다.'});
+        }
+    }
 }

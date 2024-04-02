@@ -3,7 +3,7 @@ import { Post } from "./post";
 import { Hashtag } from "./hashtag";
 
 @Entity()
-export class postHashtag{
+export class PostHashtag{
     @PrimaryGeneratedColumn()
     id : number;
 

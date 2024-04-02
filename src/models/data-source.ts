@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { User } from "./entity/user"
 import { Post } from "./entity/post"
 import { Hashtag } from "./entity/hashtag"
-import { postHashtag } from "./entity/postHashtag";
+import { PostHashtag } from "./entity/postHashtag";
 
 const env = dotenv.config();
 if (env.error) {
@@ -19,7 +19,9 @@ export const myDataSource = new DataSource({
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    entities: [User,Post, Hashtag, postHashtag,  "./entity/*.js", "./entity/*.ts"],
+    entities: [User,Post, Hashtag, PostHashtag,  "./entity/*.js", "./entity/*.ts"],
     logging: true,
     synchronize: true,
+    migrations: ['src/models/migration/*.ts'],
+    migrationsTableName: 'migrations',
 })

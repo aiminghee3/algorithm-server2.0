@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany} from "typeorm";
 import { User } from "./user";
-import { postHashtag } from "./postHashtag";
+import { PostHashtag } from "./postHashtag";
 
 @Entity()
 export class Post {
@@ -33,10 +33,10 @@ export class Post {
     public lastUpdatedAt: Date;
 
 
-    @ManyToOne(() => User, user => user.posts)
+    @ManyToOne(() => User, user => user.posts, { cascade: true })
     user : User;
 
     
-    @OneToMany(() => postHashtag, postHashtag => postHashtag.post)
-    postHashtags : postHashtag[];
+    @OneToMany(() => PostHashtag, postHashtag => postHashtag.post, { cascade: true })
+    postHashtags: PostHashtag[];
 }

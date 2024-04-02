@@ -51,7 +51,7 @@ export default class PostRepository{
      * 게시글 업데이트
      */
     public async update(updatePost : IPostUpdateDTO){
-        await this.postRepository.update(updatePost.id, updatePost);
+       // await this.postRepository.update(updatePost.id, updatePost);
     }
 
     /**

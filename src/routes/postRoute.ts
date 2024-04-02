@@ -26,4 +26,7 @@ export default (app: Router) => {
 
   //게시글 상세조회
   route.get('/get/:postId', postController.getPost);
+
+  //테스트
+  route.post('/test', postController.getTest);
 };

@@ -1,15 +1,15 @@
-import { Entity,PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
-import { postHashtag } from "./postHashtag";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
+import { PostHashtag } from "./postHashtag";
 
 
 @Entity()
-export class Hashtag{
+export class Hashtag {
     @PrimaryGeneratedColumn()
-    id : number;
+    id: number;
 
     @Column()
-    tag : string;
+    tag: string;
 
-    @OneToMany(() => postHashtag, postHashtag => postHashtag.hashtag)
-    postHashtags : postHashtag[];
+    @OneToMany(() => PostHashtag, postHashtag => postHashtag.hashtag, { cascade: true })
+    postHashtags: PostHashtag[];
 }

@@ -13,6 +13,7 @@ export interface IPostInputDTO{
     content : string;
     alarm : Date;
     user : IUser;
+    hashtags : string[];
 }
 
 export interface IPostUpdateDTO{
@@ -24,4 +25,5 @@ export interface IPostUpdateDTO{
     rate : number;
     content : string;
     alarm : Date;
+    hashtags : string[];
 }
