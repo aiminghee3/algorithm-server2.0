@@ -1,8 +1,6 @@
-import UserRepository from "@/repository/userRepository";
 import { IUser, IUserInputDTO } from "@/interface/IUser";
 import { generateAccessToken, generateRefreshToken } from "@/utils/token";
 import { myDataSource } from "@/models";
-import jwt from 'jsonwebtoken';
 import { User } from "@/models/entity/user";
 import logger from "@/loader/logger";
 

@@ -1,9 +1,5 @@
-import PostRepository from "@/repository/postRepository";
-import UserRepository from "@/repository/userRepository";
 import { IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
 import logger from "@/loader/logger";
-import { IUser } from "@/interface/IUser";
-import { relative } from "path";
 import { Post } from "../models/entity/post";
 import { User } from "../models/entity/user";
 import { myDataSource } from "@/models";

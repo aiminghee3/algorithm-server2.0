@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  mysql:
+    build:
+      context: ./dockerFiles
+      dockerfile : Mysql.Dockerfile
+    container_name: mysql_server
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: algorithm
+      MYSQL_DATABASE: algorithm-review 
+      MYSQL_ROOT_PASSWORD: 00000000
+      MYSQL_PASSWORD: Wpsxmfks3135!
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./container:/var/lib/mysql
+    networks:
+      - server_network
+
+  node:
+    build:
+      context: ./dockerFiles
+      dockerfile: Server.Dockerfile
+    container_name: node_server
+    restart: unless-stopped
+    env_file:
+      - ./env
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+    depends_on:
+      - mysql
+    stdin_open: true
+    tty: true
+    networks:
+      - server_network
+      
+networks:
+  my_network:

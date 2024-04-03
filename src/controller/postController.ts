@@ -1,6 +1,5 @@
 import PostService from "@/service/postService";
-import { IUser, IUserInputDTO, IUserUpdateDTO } from "@/interface/IUser";
-import { IPost, IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
+import { IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
 import { Response, Request } from 'express';
 import logger from "@/loader/logger";
 

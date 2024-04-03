@@ -1,4 +1,3 @@
-import { IUser } from '@/interface/IUser' // Import the IUser interface from the appropriate module
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';

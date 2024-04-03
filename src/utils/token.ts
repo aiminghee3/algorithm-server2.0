@@ -1,5 +1,3 @@
-import {Request, Response} from 'express';
-import { IUser, IUserInputDTO } from "@/interface/IUser";
 import jwt from 'jsonwebtoken';
 
 

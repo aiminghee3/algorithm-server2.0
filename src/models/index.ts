@@ -1,5 +1,4 @@
 import { myDataSource } from "./data-source"
-import { User } from "./entity/user"
 import Logger from '../loader/logger';
 
 // 데이터베이스 커넥션 초기화 

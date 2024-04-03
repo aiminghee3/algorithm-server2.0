@@ -1,9 +1,7 @@
 // repositories/userRepository.ts
 import dotenv from 'dotenv';
-import { User } from "../models/entity/user"
 import { Post } from "../models/entity/post"
-import { IUser, IUserInputDTO } from "@/interface/IUser";
-import { IPost, IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
+import { IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
 import { myDataSource } from "@/models";
 
 

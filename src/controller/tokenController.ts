@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import TokenService from '@/service/tokenService';
-import jwt from 'jsonwebtoken';
 import logger from '@/loader/logger';
 
 const tokenService = new TokenService();

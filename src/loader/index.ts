@@ -2,6 +2,7 @@ import expressLoader from './express';
 import { databaseLoader } from '../models/index';
 import express from 'express';
 import Logger from './logger';
+import config from '@/config';
 
 export default async (app : express.Application) => {
 
@@ -21,7 +22,7 @@ export default async (app : express.Application) => {
         model: require('../models/user').default,
     };
     */
-
+   
 // It returns the agenda instance because it's needed  in the subsequent loaders
 await databaseLoader();
 await expressLoader({ app });
