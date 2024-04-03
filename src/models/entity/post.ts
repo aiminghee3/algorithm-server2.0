@@ -33,10 +33,10 @@ export class Post {
     public lastUpdatedAt: Date;
 
 
-    @ManyToOne(() => User, user => user.posts, { cascade: true })
+    @ManyToOne(() => User, user => user.posts)
     user : User;
 
     
-    @OneToMany(() => PostHashtag, postHashtag => postHashtag.post, { cascade: true })
+    @OneToMany(() => PostHashtag, postHashtag => postHashtag.post, { cascade: true, onDelete: 'CASCADE' })
     postHashtags: PostHashtag[];
 }

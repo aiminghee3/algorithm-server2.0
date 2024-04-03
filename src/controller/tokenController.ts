@@ -38,7 +38,7 @@ export default class TokenController {
             const accessToken = await tokenService.verifyRefreshToken(refreshToken.split(' ')[1]);
             const encodedToken = encodeURIComponent(accessToken);
             res.cookie("accessToken" , encodedToken);
-            console.log(encodedToken)
+            logger.info('Refresh토큰을 통해 Access토큰을 발급하였습니다.');
             return res.status(200).json({ message : 'Refresh토큰을 통해 Access토큰을 발급하였습니다.'});;
         }
         catch(err : any){

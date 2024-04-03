@@ -10,6 +10,6 @@ export class Hashtag {
     @Column()
     tag: string;
 
-    @OneToMany(() => PostHashtag, postHashtag => postHashtag.hashtag, { cascade: true })
+    @OneToMany(() => PostHashtag, postHashtag => postHashtag.hashtag)
     postHashtags: PostHashtag[];
 }

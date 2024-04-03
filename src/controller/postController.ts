@@ -30,9 +30,11 @@ export default class postController{
      * 게시글 업데이트
      */
     public async updatePost(req : Request, res : Response){
+        const postId = parseInt(req.params.postId, 10);
+        const userId = parseInt(req.params.userId, 10);
         const updatePost : IPostUpdateDTO = req.body;
         try{
-            await postService.updatePost(updatePost);
+            await postService.updatePost(updatePost, postId, userId);
             logger.info('게시글 수정 성공');
             return res.status(201).json({ message: "게시글 수정이 성공하였습니다." });
         }
