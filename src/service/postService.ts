@@ -187,6 +187,7 @@ export default class PostService{
             where: { id: postId },
             relations: ['user']
         });
+        console.log(post)
         if(post?.user.id != userId){
             logger.error('작성자만 삭제할 수 있습니다.');
             throw new Error('작성자만 삭제할 수 있습니다.');

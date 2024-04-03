@@ -7,7 +7,7 @@ export class PostHashtag{
     @PrimaryGeneratedColumn()
     id : number;
 
-    @ManyToOne(() => Post, post => post.postHashtags)
+    @ManyToOne(() => Post, post => post.postHashtags, {onDelete: 'CASCADE'})
     @JoinColumn({name : 'postId'})
     post : Post;
 
