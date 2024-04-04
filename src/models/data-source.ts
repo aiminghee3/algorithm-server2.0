@@ -12,7 +12,7 @@ export const myDataSource = new DataSource({
   type: "mysql",
   host: config.host,
   port: Number(config.mysql_port),
-  username: config.user,
+  username: 'root',
   password: config.password,
   database: config.database,
   entities: [User,Post, Hashtag, PostHashtag,  "./entity/*.js", "./entity/*.ts"],
@@ -21,5 +21,3 @@ export const myDataSource = new DataSource({
   migrations: ['src/models/migration/*.ts'],
   migrationsTableName: 'migrations',
 })
-
-

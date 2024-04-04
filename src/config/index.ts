@@ -19,12 +19,12 @@ export default {
   /**
    * mysql database
    */
-  host : process.env.MYSQLDB_HOST,
-  user : process.env.MYSQLDB_USER,
-  password : process.env.MYSQLDB_ROOT_PASSWORD,
-  database : process.env.MYSQLDB_DATABASE,
-  mysql_port : process.env.MYSQLDB_PORT,
-
+  host : process.env.MYSQL_HOST,
+  user : process.env.MYSQL_USER,
+  password : process.env.MYSQL_PASSWORD,
+  database : process.env.MYSQL_DATABASE,
+  mysql_port : process.env.MYSQL_PORT,
+  
   /**
    * port
    */
