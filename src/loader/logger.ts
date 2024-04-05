@@ -59,7 +59,7 @@ const logger = createLogger({
 
 
 // 개발 환경에서 터미널에서 출력
-if (process.env.NODE_ENV != "production") {
+if (process.env.NODE_ENV === "production") {
   logger.add(
     new winston.transports.Console({
       format: winston.format.combine(

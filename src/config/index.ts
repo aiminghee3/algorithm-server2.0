@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'production') {
   throw new Error('process.env.NODE_ENV IS_NOT_SET!!');  
 }
 
-
 export default {
   /**
    * mysql database
@@ -38,7 +37,7 @@ export default {
   /**
    * typesorm
    */
-  sync : process.env.SYNC,
+  sync : process.env.TYPESORM_SYNC,
 
   /**
    * Used by winston logger
