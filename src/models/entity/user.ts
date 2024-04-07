@@ -18,6 +18,6 @@ export class User {
     @UpdateDateColumn()
     public lastUpdatedAt: Date;
 
-    @OneToMany(() => Post, post => post.user)
+    @OneToMany(() => Post, post => post.user, { cascade: true })
     posts: Post[];
 }

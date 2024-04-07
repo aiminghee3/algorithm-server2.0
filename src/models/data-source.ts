@@ -1,23 +1,23 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import dotenv from 'dotenv';
 import { User } from "./entity/user"
 import { Post } from "./entity/post"
+import { Hashtag } from "./entity/hashtag"
+import { PostHashtag } from "./entity/postHashtag";
+import config from "@/config"
 
-const env = dotenv.config();
-if (env.error) {
-  // This error should crash whole process
-  throw new Error("env파일을 찾을 수 없습니다.");
-}
+const TYPESORM_SYNC: boolean = config.sync === 'true'; // 데이터베이스 동기화
 
 export const myDataSource = new DataSource({
-    type: "mysql",
-    host: process.env.HOST,
-    port: 3306,
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
-    entities: [User,Post,  "./entity/*.js", "./entity/*.ts"],
-    logging: true,
-    synchronize: true,
+  type: "mysql",
+  host: config.host,
+  port: Number(config.mysql_port),
+  username: 'root',
+  password: config.password,
+  database: config.database,
+  entities: [User,Post, Hashtag, PostHashtag,  "./entity/*.js", "./entity/*.ts"],
+  logging: true,
+  synchronize: TYPESORM_SYNC,
+  migrations: ['src/models/migration/*.ts'],
+  migrationsTableName: 'migrations',
 })

@@ -40,7 +40,7 @@ export default class userController{
             logger.info('로그인 성공');
             res.cookie("acessToken" , user.accessToken);
             res.cookie("refreshToken" , user.refreshToken);
-            return res.status(200).json({message : '로그인 성공', user : user});
+            return res.status(200).json({message : '로그인 성공', user});
         }
         catch(err : any){
             logger.error('로그인 실패');

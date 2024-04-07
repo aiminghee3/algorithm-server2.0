@@ -1,14 +1,8 @@
-import { IUser } from '@/interface/IUser' // Import the IUser interface from the appropriate module
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import dotenv from 'dotenv';
+import config from "@/config"
 
-const env = dotenv.config();
-const secretKey = process.env.JWT_SECRET; // Assign the JWT secret key to a variable
-if (env.error) {
-    // This error should crash whole process
-    throw new Error("env파일을 찾을 수 없습니다.");
-}
+const secretKey = config.jwtSecret; // Assign the JWT secret key to a variable
 
 export const verifyAccessToken = (req : Request, res : Response, next : NextFunction) =>{
     try {

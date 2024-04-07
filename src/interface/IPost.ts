@@ -13,15 +13,16 @@ export interface IPostInputDTO{
     content : string;
     alarm : Date;
     user : IUser;
+    hashtags : string[];
 }
 
 export interface IPostUpdateDTO{
-    id : number;
-    userId : number;
     title : string;
     problem_number : number;
     problem_link : string;
     rate : number;
     content : string;
     alarm : Date;
+    user : IUser;
+    hashtags : string[];
 }

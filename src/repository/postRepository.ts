@@ -1,9 +1,7 @@
 // repositories/userRepository.ts
 import dotenv from 'dotenv';
-import { User } from "../models/entity/user"
 import { Post } from "../models/entity/post"
-import { IUser, IUserInputDTO } from "@/interface/IUser";
-import { IPost, IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
+import { IPostInputDTO, IPostUpdateDTO } from "@/interface/IPost";
 import { myDataSource } from "@/models";
 
 
@@ -51,7 +49,7 @@ export default class PostRepository{
      * 게시글 업데이트
      */
     public async update(updatePost : IPostUpdateDTO){
-        await this.postRepository.update(updatePost.id, updatePost);
+       // await this.postRepository.update(updatePost.id, updatePost);
     }
 
     /**
