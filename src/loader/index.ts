@@ -26,7 +26,6 @@ export default async (app : express.Application) => {
 // It returns the agenda instance because it's needed  in the subsequent loaders
 await databaseLoader();
 await expressLoader({ app });
-console.log('연결됨')
 
 Logger.info('Express loaded');
 };

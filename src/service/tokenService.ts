@@ -1,18 +1,13 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import logger from "@/loader/logger";
-import dotenv from 'dotenv';
+import config from '@/config';
 import {generateAccessToken} from '@/utils/token';
 
-const env = dotenv.config();
-const secretKey = process.env.JWT_SECRET; // Assign the JWT secret key to a variable
-if (env.error) { 
-    // This error should crash whole process
-    throw new Error("env파일을 찾을 수 없습니다.");
-}
 
+const secretKey = config.jwtSecret; // jwt key 할당
 
 export default class tokenService{
-    
+
     public async verifyAccessToken(token : any){
         try{
             if (!secretKey) {

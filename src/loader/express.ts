@@ -2,16 +2,9 @@ import {Application, Request, Response} from 'express';
 import express from 'express';
 import routes from '@/routes'; // 라우터 설정파일
 import cors from 'cors';
-import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 
-
-const env = dotenv.config();
-if (env.error) {
-  // This error should crash whole process
-  throw new Error("env파일을 찾을 수 없습니다.");
-}
 
 // 특정 도메인에서의 요청만 허용
 const corsOptions = {
