@@ -14,6 +14,7 @@ export default class postController{
      * 게시글 작성
      */
     public async createPost(req : Request, res : Response){
+
         const postInputDTO : IPostInputDTO = req.body;
         try{
             await postService.createPost(postInputDTO);

@@ -1,39 +1,28 @@
-version: '3.7'
 
 services:
   mysql:
-    platform: linux/amd64
-    image: mysql:8
+    image : ${DOCKER_USER_ID}/algorithm-mysql
     container_name: mysql_server
     env_file: 
       - ./.env
-      - ./env/.env.dev
-      - ./env/.env.test
       - ./env/.env.production
     restart: unless-stopped
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - db:/var/lib/mysql
     networks:
       - server_network
 
   node:
-    platform: linux/amd64
-    build:
-      context: ./
-      dockerfile: Server.Dockerfile
+    image: ${DOCKER_USER_ID}/algorithm-server
     container_name: node_server
     restart: unless-stopped
     env_file: 
       - ./.env
-      - ./env/.env.dev
-      - ./env/.env.test
       - ./env/.env.production
     ports:
-      - "8080:8080"
-    volumes:
-      - .:/app
+      - "8000:8000"
     depends_on:
       - mysql
     stdin_open: true
@@ -44,3 +33,5 @@ volumes:
     db:
 networks:
   server_network:
+
+
