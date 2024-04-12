@@ -1,7 +1,7 @@
 
 services:
   mysql:
-    image : ${DOCKER_USER_ID}/algorithm-mysql
+    image : mysql:8
     container_name: mysql_server
     env_file: 
       - ./.env
