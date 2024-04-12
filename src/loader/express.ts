@@ -8,7 +8,8 @@ import cookieParser from 'cookie-parser';
 
 // 특정 도메인에서의 요청만 허용
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin : 'https://www.codereview.site',
+  //origin: 'http://localhost:3000',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // 인증 정보를 포함하려면 true로 설정
   Headers: ["Content-type", "Authorization"],
@@ -27,7 +28,7 @@ export default ({ app }: { app: Application }) => {
   app.use(cors());
 
   // Useful if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-  // It shows the real origin IP in the heroku or Cloudwatch logs
+  // It shows the real origin IP in the heroku or Cloudwatch logsㅋ
   //app.enable('trust proxy');
 
   // The magic package that prevents frontend developers going nuts

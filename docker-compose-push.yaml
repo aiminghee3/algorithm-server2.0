@@ -1,0 +1,15 @@
+
+version: '3.7'
+
+services:
+  mysql:
+    image : ${DOCKER_USER_ID}/algorithm-mysql
+    container_name: mysql_server
+
+  node:
+    platform: linux/amd64
+    build:
+      context: ./
+      dockerfile: Server.Dockerfile
+    image: ${DOCKER_USER_ID}/algorithm-server
+
