@@ -21,7 +21,7 @@ async function startServer() {
   app.listen(config.port, () => {
     Logger.info(`
       ------------------------------
-      *   ${config.port} 번 포트에서 대기중  *
+      *   ${config.port} 번 포트에서 대기중   *
       ------------------------------
     `);
   }).on('error', err => {
