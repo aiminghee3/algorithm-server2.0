@@ -24,7 +24,7 @@ export default ({ app }: { app: Application }) => {
   app.use(express.urlencoded({ extended: true })); // URL-encoded 형식의 body 파싱 -> 프론트에서 form형식으로 제출되면 express.json으로 해석불가해서 사용
   app.use(cookieParser()) // 쿠키 확인
   app.use(express.json());
-  app.use(routes);
+  app.use(routes());
   app.use(cors());
 
   // Useful if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
