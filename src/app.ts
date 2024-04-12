@@ -3,6 +3,7 @@ import Logger from './loader/logger';
 import config from './config';
 import 'module-alias/register';
 import "reflect-metadata"
+import 'tsconfig-paths/register';
 
 async function startServer() {
   const app = express();
@@ -13,6 +14,8 @@ async function startServer() {
    * Well, at least in node 10 without babel and at the time of writing
    * So we are using good old require.
    **/
+
+
   await require('./loader').default(app);
 
   app.listen(config.port, () => {
