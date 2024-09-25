@@ -84,6 +84,15 @@ export default class postController{
             return res.status(200).json({message : '게시글 상세조회 성공', post});
         }
         catch(err : any){
+            if(err.message === '존재하지 않는 게시글입니다.'){
+                return res.status(404).json({message : '존재하지 않는 게시글입니다.'});
+            }
+            else if(err.message === '~~~~~'){
+                return res.status(409).json({message : '~~~~~~~~~~'});
+            }
+            else if(err.message === '~~~~~~~~~~'){
+                return res.status(503).json({message : '~~~~~~~~~~~'});
+            }
             res.status(err.statusCode || 500).send({message : '게시글 조회에 실패하였습니다.'});
         }
     }

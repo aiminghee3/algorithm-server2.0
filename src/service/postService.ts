@@ -5,13 +5,26 @@ import { User } from "../models/entity/user";
 import { myDataSource } from "@/models";
 import { Hashtag } from "@/models/entity/hashtag";
 import { PostHashtag } from "@/models/entity/postHashtag";
+import { Repository } from "typeorm";
 
 export default class PostService{
 
-    private postRepository = myDataSource.getRepository(Post);
-    private userRepository = myDataSource.getRepository(User);
-    private hashtagRepository = myDataSource.getRepository(Hashtag);
-    private postHashtagRepository = myDataSource.getRepository(PostHashtag);
+    private postRepository: Repository<Post>;
+    private userRepository: Repository<User>;
+    private hashtagRepository: Repository<Hashtag>;
+    private postHashtagRepository: Repository<PostHashtag>;
+
+    constructor(
+        postRepository: Repository<Post>,
+        userRepository: Repository<User>,
+        hashtagRepository: Repository<Hashtag>,
+        postHashtagRepository: Repository<PostHashtag>
+    ) {
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
+        this.hashtagRepository = hashtagRepository;
+        this.postHashtagRepository = postHashtagRepository;
+    }
 
     /**
      * 게시글 작성
@@ -22,7 +35,6 @@ export default class PostService{
             id: newPost.userId
           });
 
-        console.log(newPost);
         if(!user){
             logger.error('존재하지 않는 사용자입니다.');
             throw new Error('존재하지 않는 사용자입니다.');
