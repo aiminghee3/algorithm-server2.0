@@ -3,12 +3,19 @@ import { generateAccessToken, generateRefreshToken } from "@/utils/token";
 import { myDataSource } from "@/models";
 import { User } from "@/models/entity/user";
 import logger from "@/loader/logger";
+import { Repository } from "typeorm";
 
 
 
 export default class userService{
-    
-    private userRepository = myDataSource.getRepository(User);
+
+    private userRepository : Repository<User>;
+
+    constructor(
+        userRepository : Repository<User>,
+    ){
+        this.userRepository = userRepository;
+    }
 
     /**
      * 회원가입
